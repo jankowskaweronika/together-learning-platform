@@ -50,15 +50,14 @@ Zebrać tylko decyzje techniczne i zasady architektoniczne umożliwiające budow
 
 ## 6. Dev Experience
 
-- **Repozytorium (start)**:
-  - Zaczynamy w modelu monorepo (pnpm) z pakietami: `apps/web`, `apps/api`, `packages/core`, `packages/ui-kit`, `packages/config` dla maksymalnej spójności i szybkich PR-ów.
-  - Monitorujemy skalę i niezależność zespołów; kryteria splitu: osobne release’y, dedykowane zespoły, potrzeba granularnych uprawnień.
-- **Docelowy split**:
-  - Po spełnieniu kryteriów wypinamy front/back do dwóch repo (`together-learning-platform`, `together-learning-platform-backend`), zachowując pakiety domenowe.
-  - Wspólne elementy (`packages/core`, kontrakty OpenAPI, design tokens) publikujemy jako wersjonowane paczki npm (prywatny registry) lub git submodules z zachowaniem semver (`core@1.x` utrzymuje zgodność).
-  - Backend publikuje artefakt OpenAPI (`/contracts/platforma.json`) oraz paczkę typów (`@platforma/api-types`), a frontend konsumuje je jako zależności z automatycznym sprawdzaniem wersji w CI.
-- **Husky hooks**: lint-staged (ESLint, Stylelint) + testy krytyczne w każdym repo/pakiecie.
-- **CI (GitHub Actions)**: lint + unit + Storybook build + E2E smoke (front), lint + unit + API E2E smoke (back).
+- **Repozytoria**:
+  - Utrzymujemy dwa niezależne repozytoria: `together-learning-platform` (Next.js App Router + MUI + Storybook) oraz `together-learning-platform-backend` (Express + Prisma + Socket.io).
+  - Każde repo zachowuje hexagonalny podział (`domain/application/infrastructure/interface`), osobne wersjonowanie i pipeline CI dopasowany do stacku.
+- **Współdzielone artefakty**:
+  - Backend publikuje kontrakt OpenAPI (`/contracts/platforma.json`) oraz paczkę typów (`@platforma/api-types` w prywatnym registry). Frontend konsumuje je jako zależności z automatycznym sprawdzaniem zgodności w CI.
+  - Design tokens i komponenty UI dostarczane są przez Storybook w repo frontu; w razie potrzeby eksportujemy `@platforma/ui-kit` jako osobną paczkę.
+- **Husky hooks**: lint-staged (ESLint, Stylelint) + testy krytyczne w każdym repo.
+- **CI (GitHub Actions)**: `together-learning-platform` – lint + unit + Storybook build + E2E smoke; `together-learning-platform-backend` – lint + unit + API E2E smoke + publikacja kontraktów.
 
 ## 7. Infrastrukturę można podmienić
 
@@ -79,7 +78,7 @@ Zebrać tylko decyzje techniczne i zasady architektoniczne umożliwiające budow
 
 ## 9. Roadmapa techniczna (skrócona)
 
-1. Utworzenie monorepo + bazowych pakietów `core` / `ui-kit`.
+1. Utworzenie repozytoriów `together-learning-platform` i `together-learning-platform-backend` + bazowych pakietów (`ui-kit`, kontrakty API).
 2. Implementacja portów domenowych + mock adapters (w pamięci).
 3. Budowa Storybooka i podstaw UI (Autoryzacja, Course Card, Lesson Player).
 4. Adaptery produkcyjne (Prisma, Supabase, YouTube).

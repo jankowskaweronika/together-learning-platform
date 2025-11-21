@@ -228,13 +228,11 @@ Platforma e-learningowa umożliwiająca tworzenie i konsumpcję kursów online z
 ### Przepływ danych:
 
 1. **Autentykacja:**
-
    - User loguje się → Backend zwraca JWT (access + refresh token)
    - Frontend przechowuje tokeny (httpOnly cookies)
    - Każdy request zawiera access token w headerze
 
 2. **Pobieranie kursów:**
-
    - Next.js SSR → Prefetch danych na serwerze
    - Client hydration → RTK Query cache w Reduxie
    - Optymistyczne updaty UI
@@ -247,6 +245,8 @@ Platforma e-learningowa umożliwiająca tworzenie i konsumpcję kursów online z
 ---
 
 ## Struktura Projektu
+
+Kod utrzymujemy w dwóch repozytoriach: `together-learning-platform` (Next.js) oraz `together-learning-platform-backend` (Express + Prisma). Poniższy schemat pokazuje logiczny podział katalogów wewnątrz każdego z nich.
 
 ```
 /platform-kursowa
@@ -897,7 +897,7 @@ Na potrzeby MVP zakładamy pozostanie w darmowych progach. Po zwiększeniu ruchu
 
 ### Faza 1: Setup projektu (Tydzień 1)
 
-- [ ] Setup repozytorium (monorepo lub 2 repo)
+- [ ] Setup dwóch repozytoriów: `together-learning-platform` (Next.js) i `together-learning-platform-backend` (Express/Prisma)
 - [ ] Konfiguracja Next.js + TypeScript
 - [ ] Konfiguracja Express + TypeScript
 - [ ] Setup Prisma + PostgreSQL
@@ -1187,53 +1187,5 @@ SMTP_PASS=
 
 ---
 
-## Przyszłe rozszerzenia (poza MVP)
-
-1. **Płatności**
-
-   - Stripe integration
-   - Kupno kursów
-   - Subskrypcje
-
-2. **Certyfikaty**
-
-   - Generowanie PDF
-   - Weryfikacja online
-
-3. **Quizy i testy**
-
-   - Pytania jednokrotnego/wielokrotnego wyboru
-   - Wynik minimalny do zaliczenia
-
-4. **Live sessions**
-
-   - Webinary na żywo
-   - Integracja z Zoom/Meet
-
-5. **Multi-language**
-
-   - i18n (next-intl)
-   - Tłumaczenia kursów
-
-6. **Mobile app**
-
-   - React Native
-   - Offline mode
-
-7. **Gamification**
-   - Punkty, odznaki
-   - Leaderboard
-
----
-
-## Kontakt i dokumentacja
-
-- **Repository:** [Link do repo]
-- **API Docs:** Swagger/OpenAPI
-- **Design:** Figma (opcjonalnie)
-
----
-
 **Wersja:** 1.0  
-**Data:** Listopad 2024  
-**Autor:** [Twoje imię]
+**Data:** Listopad 2024

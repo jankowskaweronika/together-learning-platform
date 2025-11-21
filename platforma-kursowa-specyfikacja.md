@@ -150,8 +150,7 @@ Platforma e-learningowa umożliwiająca tworzenie i konsumpcję kursów online z
   - Server Components
   - Image Optimization
 - **MUI (Material-UI v5)** - komponenty UI
-- **TanStack Query (React Query)** - zarządzanie stanem serwera, cache
-- **Zustand** - stan globalny (user, notifications, UI state)
+- **Redux Toolkit + RTK Query** - globalny stan i cache zapytań
 - **React Hook Form** + **Zod** - formularze i walidacja
 - **Axios** - HTTP client
 - **next-auth** - autentykacja po stronie klienta
@@ -190,8 +189,8 @@ Platforma e-learningowa umożliwiająca tworzenie i konsumpcję kursów online z
 │  ├─ Server Components (SEO)             │
 │  ├─ Client Components (interaktywność)  │
 │  ├─ MUI Components                      │
-│  ├─ TanStack Query (data fetching)      │
-│  ├─ Zustand (global state)              │
+│  ├─ Redux Toolkit + RTK Query (data)    │
+│  ├─ Redux Toolkit (global state)        │
 │  └─ NextAuth (session handling)         │
 └──────────────┬──────────────────────────┘
                │
@@ -237,7 +236,7 @@ Platforma e-learningowa umożliwiająca tworzenie i konsumpcję kursów online z
 2. **Pobieranie kursów:**
 
    - Next.js SSR → Prefetch danych na serwerze
-   - Client hydration → TanStack Query cache
+   - Client hydration → RTK Query cache w Reduxie
    - Optymistyczne updaty UI
 
 3. **Real-time powiadomienia:**
@@ -316,7 +315,7 @@ Platforma e-learningowa umożliwiająca tworzenie i konsumpcję kursów online z
 │   │   ├── /lib
 │   │   │   ├── api.ts            # Axios instance + interceptors
 │   │   │   ├── auth.ts           # NextAuth configuration
-│   │   │   ├── queryClient.ts    # TanStack Query setup
+│   │   │   ├── store.ts          # Redux store + RTK Query setup
 │   │   │   └── socket.ts         # Socket.io client
 │   │   │
 │   │   ├── /hooks
@@ -325,10 +324,10 @@ Platforma e-learningowa umożliwiająca tworzenie i konsumpcję kursów online z
 │   │   │   ├── useLessons.ts
 │   │   │   └── useNotifications.ts
 │   │   │
-│   │   ├── /stores               # Zustand stores
-│   │   │   ├── authStore.ts
-│   │   │   ├── uiStore.ts
-│   │   │   └── notificationStore.ts
+│   │   ├── /store                # Redux slices
+│   │   │   ├── authSlice.ts
+│   │   │   ├── uiSlice.ts
+│   │   │   └── notificationSlice.ts
 │   │   │
 │   │   ├── /types
 │   │   │   ├── user.ts

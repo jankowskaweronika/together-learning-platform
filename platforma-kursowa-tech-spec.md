@@ -50,12 +50,15 @@ Zebrać tylko decyzje techniczne i zasady architektoniczne umożliwiające budow
 
 ## 6. Dev Experience
 
-- **Repozytorium**:
-  - Startujemy w modelu monorepo (pnpm) z pakietami: `apps/web`, `apps/api`, `packages/core`, `packages/ui-kit`, `packages/config`.
-  - Monitorujemy złożoność i skalę zespołu; po ustabilizowaniu kontraktów (OpenAPI + wspólne typy) dopuszczamy rozdzielenie na dwa repo (`frontend`, `backend`) bez zmiany struktury pakietów domenowych.
-  - Kryteria uruchamiające split: niezależne release’y, dedykowane zespoły i potrzeba granularnych uprawnień; do tego czasu monorepo optymalizuje DX i spójne PR-y.
-- Husky hooks: lint-staged (ESLint, Stylelint), testy krytyczne.
-- CI (GitHub Actions): lint + unit + Storybook build + E2E smoke.
+- **Repozytorium (start)**:
+  - Zaczynamy w modelu monorepo (pnpm) z pakietami: `apps/web`, `apps/api`, `packages/core`, `packages/ui-kit`, `packages/config` dla maksymalnej spójności i szybkich PR-ów.
+  - Monitorujemy skalę i niezależność zespołów; kryteria splitu: osobne release’y, dedykowane zespoły, potrzeba granularnych uprawnień.
+- **Docelowy split**:
+  - Po spełnieniu kryteriów wypinamy front/back do dwóch repo (`together-learning-platform`, `together-learning-platform-backend`), zachowując pakiety domenowe.
+  - Wspólne elementy (`packages/core`, kontrakty OpenAPI, design tokens) publikujemy jako wersjonowane paczki npm (prywatny registry) lub git submodules z zachowaniem semver (`core@1.x` utrzymuje zgodność).
+  - Backend publikuje artefakt OpenAPI (`/contracts/platforma.json`) oraz paczkę typów (`@platforma/api-types`), a frontend konsumuje je jako zależności z automatycznym sprawdzaniem wersji w CI.
+- **Husky hooks**: lint-staged (ESLint, Stylelint) + testy krytyczne w każdym repo/pakiecie.
+- **CI (GitHub Actions)**: lint + unit + Storybook build + E2E smoke (front), lint + unit + API E2E smoke (back).
 
 ## 7. Infrastrukturę można podmienić
 
